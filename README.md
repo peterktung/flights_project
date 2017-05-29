@@ -8,6 +8,7 @@ I chose to use a mix between a bar char and a bubble chart to show the changes i
 ## Feeback
 
 ## Resources
-https://bl.ocks.org/mbostock/7555321 (multiple line axis labels)
-http://stackoverflow.com/questions/20758373/inversion-with-ordinal-scale
-https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+
+* https://bl.ocks.org/mbostock/7555321 (multiple line axis labels)
+* http://stackoverflow.com/questions/20758373/inversion-with-ordinal-scale
+* https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
