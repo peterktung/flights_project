@@ -5,7 +5,7 @@ This visualization was derived from the US flight data obtained the [ASA](http:/
 ## Design
 I chose to use a mix between a bar char and a bubble chart to show the changes in both the total flights provided (y-axis) from year to year as well as the change in the airline's size (bubble size). A slider as was added at the end of the animation to allow users to choose the year axis themselves an allowd them to explore the data further. I felt that this was a better mechanism than using a series of buttons.
 
-## Feeback
+## Feedback
 
 ## Resources
 
