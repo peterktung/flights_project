@@ -23,12 +23,18 @@
       text-align: center;
     }
 
-    .slider {
+    .interactions {
       text-align: center;
+    }
+
+    #description {
+      padding-left: 100px;
+      font-style: italic;
     }
 
     #caption {
       padding-left: 100px;
+      font-size: 14px;
     }
 
     .footnote {
@@ -38,6 +44,10 @@
 
     #footnote1 {
       color: red;
+    }
+
+    #replayInteraction {
+      margin-left: 50px;
     }
   </style>
   <script type="text/javascript">
@@ -54,8 +64,17 @@
         .text("Air Dominance In the US (1995 - 2008)");
 
       d3.select("body")
+        .append("p")
+        .attr("id", "description")
+        .html("This visualization shows the commerical airlines that " +
+          "dominated the US market between the years 1995 to 2008 through the " +
+          "number of flights each airline provide that year."+ "</br>" +
+          "The size of the circle represents the size of the fleet of each " +
+          "airline.");
+
+      d3.select("body")
         .append("h3")
-        .text("\u200C")
+        .text("\u200C");
 
       d3.select("body")
         .append("p")
@@ -223,7 +242,6 @@
 
         var removeCircles = circles.exit();
         var addCircles = circles.enter();
-        debugger;
 
         removeCircles['_groups'][0].forEach( function(c) {
           var domainIndex = getDomainIndex(c.attributes['cx'].value);
@@ -317,7 +335,7 @@
             .text(caption2);
           setTimeout(function () {
             isPaused = false;
-          }, 3000);
+          }, 5000);
         }
         else if (year <= 2007) {
           d3.select("#caption")
@@ -328,45 +346,79 @@
         }
       }
 
-      var yearIdx = 0;
-      var yearInterval = setInterval(function() {
-        if (!isPaused) {
-          update(years[yearIdx], false);
-          updateCaption(years[yearIdx]);
+      function playAnimation(drawOnEnd) {
+        svg.selectAll("circle").remove();
+        prevYear = 1994;
+        if (!drawOnEnd) {
+          d3.select("#yearSlider")
+            .attr('disabled', true);
 
-          yearIdx++;
+          d3.select("#replayButton")
+            .attr('disabled', true);
 
-          if (yearIdx >= years.length) {
-            clearInterval(yearInterval);
-            setTimeout(function () {
-              d3.select("#caption")
-              .text("\u200C");
-              drawSlider();
-            }, 3000);
-          }
+          svg.selectAll(".tick text.xtext")['_groups'][0]
+            .forEach( function (e) {
+              e.classList.remove("removed");
+            });
         }
-      }, 1500);
 
-      function drawSlider() {
-        var slider = d3.select('body')
+        var yearIdx = 0;
+        var yearInterval = setInterval(function() {
+          if (!isPaused) {
+            update(years[yearIdx], false);
+            updateCaption(years[yearIdx]);
+
+            yearIdx++;
+
+            if (yearIdx >= years.length) {
+              clearInterval(yearInterval);
+              setTimeout(function () {
+                d3.select("#caption")
+                .text("\u200C");
+                if (drawOnEnd) {
+                  drawInteractions();
+                }
+                else {
+                  var yearSlider = d3.select("#yearSlider")
+                  yearSlider.attr('disabled', null)
+                    .property('value', 2008);
+                  d3.select("#yearLabel").text('2008 ');
+                  update(2008, true);
+
+                  d3.select("#replayButton")
+                    .attr('disabled', null);
+                }
+              }, 5000);
+            }
+          }
+        }, 1500);
+      }
+
+      playAnimation(true);
+
+      function drawInteractions() {
+        var interactions = d3.select('body')
           .append('p')
-          .attr('class', 'slider');
+          .attr('class', 'interactions');
 
-        var yearLabel = slider.append('label')
+        var yearInteraction = interactions.append('span')
+          .attr('id', 'yearInteraction');
+
+        var yearLabel = yearInteraction.append('label')
           .attr('for', 'yearSlider')
           .text('Year: ');
 
-        var yearValue = yearLabel.append('span')
-          .attr('id', 'yearLabel');
+        var yearValue = yearInteraction.append('span')
+          .attr('id', 'yearLabel')
+          .text('2008 ');
 
-        var yearSlider = slider.append('input')
+        var yearSlider = yearInteraction.append('input')
           .attr('type', 'range')
           .attr('min', 1995)
           .attr('max', 2008)
-          .attr('id', 'yearSlider');
+          .attr('id', 'yearSlider')
+          .property('value', 2008);
 
-        yearSlider.property('value', 2008);
-        yearValue.text('2008 ');
         update(2008, true);
 
         yearSlider.on("input", function() {
@@ -379,6 +431,16 @@
 
           update(year, true);
         }
+
+        var replayInteraction = interactions.append('span')
+          .attr('id', 'replayInteraction');
+        var replay = replayInteraction.append('input')
+          .attr('type', 'button')
+          .attr('value', 'Replay')
+          .attr('id', 'replayButton')
+          .on('click', function() {
+            playAnimation(false);
+          });
       }
     }
   </script>
