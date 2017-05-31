@@ -8,9 +8,15 @@ I chose to use a mix between a bar char and a bubble chart to show the changes i
 ## Feedback
 ### Feedback 1
 
-* Brief description to explain the visualization and the size of the circles
-* Add longer pause to some explanations
-* Add replay capability
+* Brief description to explain the visualization and the size of the circles.
+* Add longer pause to some explanations.
+* Add replay capability.
+
+### Feedback 2
+* Smooth out the animation for each transistion.
+* Increase the size of the y-axis to make each transistion look clearer.
+
+### Feedback 3
 
 ## Resources
 
