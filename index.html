@@ -261,6 +261,7 @@
         });
 
         removeCircles.transition()
+          .duration(1000)
           .attr('cy', height)
           .attr('r', 0)
           .remove();
@@ -272,6 +273,7 @@
           .attr('cy', height)
           .attr('r', 0)
           .transition()
+          .duration(1000)
           .attr('cy', function(d) {
             return flightsScale(d['Total_Flights']);
           })
@@ -280,6 +282,7 @@
           });
 
         circles.transition()
+          .duration(1000)
           .attr('cy', function(d) {
             return flightsScale(d['Total_Flights']);
           })
