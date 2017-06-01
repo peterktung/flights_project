@@ -188,6 +188,7 @@
         .attr('class', 'bubble');
 
       //https://bl.ocks.org/mbostock/7555321
+      //This is used to create x-axis labels in multiple lines
       function wrap(text, width) {
         text.each(function() {
           var text = d3.select(this),
@@ -221,14 +222,8 @@
         });
       }
 
-      //http://stackoverflow.com/questions/20758373/inversion-with-ordinal-scale
-      function getDomainIndex(rangeValue) {
-        var i = 0;
-        var step = carriersScale.step()
-        for(i=0; rangeValue > ( margin + (step * i)); i++) {}
-        return i-1;
-      }
-
+      // Get the year that a carrier has ceased operation or 2008 if carrier
+      // is operating on (and beyond) 2008
       var carrier_max_year = d3.nest()
         .key(function(d) {
           return d.Carrier;
@@ -380,6 +375,9 @@
 
             if (yearIdx >= years.length) {
               clearInterval(yearInterval);
+
+              // this timeout is for the 2008 caption as it is the final year
+              // of the animation and we want to give readers time to read
               setTimeout(function () {
                 d3.select("#caption")
                 .text("\u200C");
