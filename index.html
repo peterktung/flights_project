@@ -114,11 +114,7 @@
         .domain([0, flightsMax])
         .range([height, topMargin]);
 
-      var allCarriers = d3.set(flightData, function(d) {
-        return d["Carrier"]
-      })
-      .values()
-      .sort(function (a,b) {
+      function carrierSort(a,b) {
         var aa = a.toLowerCase();
         var bb = b.toLowerCase();
         if (aa < bb)
@@ -126,6 +122,14 @@
         if (aa > bb)
           return 1;
         return 0;
+      }
+
+      var allCarriers = d3.set(flightData, function(d) {
+        return d["Carrier"]
+      })
+      .values()
+      .sort(function (a,b) {
+        return carrierSort(a,b);
       });
 
       var carriersScale = d3.scalePoint()
@@ -225,7 +229,19 @@
         return i-1;
       }
 
-      var prevYear = 1994;
+      var carrier_max_year = d3.nest()
+        .key(function(d) {
+          return d.Carrier;
+        })
+        .sortKeys(function (a,b) {
+          return carrierSort(a,b);
+        })
+        .rollup(function(d) {
+          return d3.max(d, function(g) {
+            return +g['Year'];
+          });
+        })
+        .entries(flightData);
 
       function update(year, annotate) {
         d3.select("h3")
@@ -240,33 +256,25 @@
             return d['Carrier'];
           });
 
-        var removeCircles = circles.exit();
-        var addCircles = circles.enter();
-
-        removeCircles['_groups'][0].forEach( function(c) {
-          var domainIndex = getDomainIndex(c.attributes['cx'].value);
-
-          if (year > prevYear) {
-            svg.selectAll(".tick text.xtext")['_groups'][0][domainIndex]
-              .classList.add("removed");
+        var xAxisText = svg.selectAll(".tick text.xtext")['_groups'][0];
+        for (var i = 0; i < allCarriers.length; i++) {
+          if (year > carrier_max_year[i].value) {
+            xAxisText[i].classList.add("removed");
           }
-        });
-
-        addCircles['_groups'][0].forEach( function(c) {
-          var domainIndex = allCarriers.indexOf(c.__data__['Carrier']);
-          if (prevYear > year) {
-            svg.selectAll(".tick text.xtext")['_groups'][0][domainIndex]
-              .classList.remove("removed");
+          else {
+            xAxisText[i].classList.remove("removed");
           }
-        });
+        }
 
-        removeCircles.transition()
+        circles.exit()
+          .transition()
           .duration(1000)
           .attr('cy', height)
           .attr('r', 0)
           .remove();
 
-        addCircles.append('circle')
+        circles.enter()
+          .append('circle')
           .attr('cx', function(d) {
             return carriersScale(d['Carrier']) + Math.ceil(maxRadius);
           })
@@ -311,8 +319,6 @@
               return "Active Fleet Size: " + d['n_aircrafts'] + "\n" +
                      "Total Flights: " + numberWithCommas(d['Total_Flights']);});
         }
-
-        prevYear = year;
       }
 
       var isPaused = false;
@@ -351,7 +357,6 @@
 
       function playAnimation(drawOnEnd) {
         svg.selectAll("circle").remove();
-        prevYear = 1994;
         if (!drawOnEnd) {
           d3.select("#yearSlider")
             .attr('disabled', true);
