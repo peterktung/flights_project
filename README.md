@@ -17,6 +17,9 @@ I chose to use a mix between a bar char and a bubble chart to show the changes i
 * Increase the size of the y-axis to make each transistion look clearer.
 
 ### Feedback 3
+* Move the subtitle and put it in the middle of the graph next to a start button so the viewer can start it when they're ready
+* Show the top 8-9 airlines individually and then aggregate all the other small ones into an additional single point. That could help cut down on complexity.
+* Moving the slider around somehow triggered most of the airlines to turn red.
 
 ## Resources
 
