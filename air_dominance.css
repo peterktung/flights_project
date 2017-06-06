@@ -1,0 +1,68 @@
+circle {
+  opacity: 0.5;
+  stroke: none;
+}
+
+.removed tspan {
+  fill: red;
+  text-decoration: line-through;
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+.interactions {
+  text-align: right;
+}
+
+#description {
+  padding-left: 100px;
+  font-style: italic;
+}
+
+#caption-div {
+  float:left;
+  width: 70%;
+}
+
+#caption {
+  padding-left: 100px;
+  font-size: 16px;
+  min-height: 58px;
+}
+
+.footnote {
+  padding-left: 75px;
+  font-size: 12px;
+}
+
+#footnote1 {
+  color: red;
+}
+
+#replayInteraction {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.x-selected {
+  font-weight: bolder; 
+}
