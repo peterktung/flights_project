@@ -10,7 +10,7 @@ Another feedback was to consolidated some of the smaller carriers and aggregate 
 Finally, a reviewer found a bug where the x-axis labels were incorrectly being marked red (indicating a carrier that has ceased operations), which was promptly fixed.
 
 ### Additional Changes
-After initial submission, there was additional [feedback](#Feedback 4) from the instructor.  Most of the feedback was implemented, including:
+After initial submission, there was additional [feedback](#Feedback-4) from the instructor.  Most of the feedback was implemented, including:
 
 * explicitly listed all the initial carrier that were dominant.
 * added explanation on Southwest Airline's dominance in the story.
