@@ -9,6 +9,20 @@ Other feedback included cosmetics changes to improve the visual appeal.  While I
 Another feedback was to consolidated some of the smaller carriers and aggregate the numbers.  While that would cut down on the complexity and the size of the graph, I felt that doing so would obscure the story I was trying to convey where a group of smaller carriers began to emerge and capture a sizable market share from the big airlines.  
 Finally, a reviewer found a bug where the x-axis labels were incorrectly being marked red (indicating a carrier that has ceased operations), which was promptly fixed.
 
+### Additional Changes
+After initial submission, there was additional [feedback](#Feedback 4) from the instructor.  Most of the feedback was implemented, including:
+
+* explicitly listed all the initial carrier that were dominant.
+* added explanation on Southwest Airline's dominance in the story.
+* re-positioned the slider and button so that it is more visible.
+* continued to display all the captions outside of the animation.
+* increased the font size of the caption.
+* added a custom tooltip (the initial implementation uses the inherent "title" attribute but the effects are browswer dependent).
+* added a bold text effect on hover of data points.
+* reduced the size of the circles to de-emphasize the importance of the fleet size.
+
+I did not, however, change the color or style of the caption fonts as it shifted the attention away from the graph.  I also did not add any visual encoding to emphasize dominant airlines as I felt that readers should explore for themselves what is "dominant", perhaps fleet size could be a factor in dominance?
+
 ## Feedback
 ### Feedback 1
 
@@ -24,6 +38,16 @@ Finally, a reviewer found a bug where the x-axis labels were incorrectly being m
 * Move the subtitle and put it in the middle of the graph next to a start button so the viewer can start it when they're ready
 * Show the top 8-9 airlines individually and then aggregate all the other small ones into an additional single point. That could help cut down on complexity.
 * Moving the slider around somehow triggered most of the airlines to turn red.
+
+### Feedback 4
+* Clarify story by explicitly listing the initial dominant airlines and explain the Southwest story.
+* Reduce the range of the bubble size to make fleet size less prominent since it does not add to the story.
+* Re-position slider and button to be more visible at the end.
+* Continue displaying captions during interactions.
+* Add tooltip on hover.
+* Make carrier selection bold on hover of data point
+* Center caption text, increase text font and color
+* Add visual encoding for "dominant" airlines
 
 ## Resources
 
